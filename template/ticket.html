@@ -1,0 +1,134 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<div class="bill">
+  <div class="brand">
+    <strong style="font-size:15px;">ESTACIONAMIENTO</strong>
+  </div>
+  <div class="address">
+    CRA 40 #49-24 OFC. 210
+    <br>
+    VIA 
+    <br>
+    TEL No- 31420
+  </div>
+  <div class="shop-details">
+    NIT: 5555555-1 <br>NO RESPONSABLE DE IVA
+  </div><br>
+  <div>{{information.type_car}} </div>
+  <div class="bill-details">
+    <div class="flex justify-between">
+      <div>Recibo N°: {{information.consecutive}}</div>
+      <div></div>
+    </div>
+     <div class="flex justify-between">
+      <div>FECHA: {{information.date_entrance}}</div>
+      <div>HORA: {{information.entrance}}</div>
+    </div>
+  </div>
+  <table class="table" style="margin-top: 10px;">
+    <tr class="header">
+	    <th>
+	      <span style="font-size: 20px;width: 10%;">PLACA</span>
+	    </th>
+	    <th style="text-align:center;">
+	      <span style="font-size: 20px;width: 10%;">{{information.plate}}</span>
+	    </th>
+    </tr>
+    	<!-- START ROWS -->
+    <!-- <tr style="">
+      <td> 
+      	<span style="font-size: 10px;"></span>
+      </td>
+    </tr> -->
+    <!-- {% for i in details_product %}
+	    <tr style="">
+	      <td> <span style="font-size: 10px;">{{i.description}}</span></td>
+	    </tr>
+    {% endfor %} -->
+
+    <!-- END ROWS -->
+
+    <tr class="totals" style="margin-bottom: 15px; margin-top: 15px;">
+      <td> 
+      	<strong>
+      		<span style="font-size: 12px;">novedades:</span>
+      	</strong>
+      </td>
+      <td> 
+      	<strong>
+      		<span style="font-size: 12px;">{{information.note}}</span>
+      	</strong>
+      </td>
+    </tr>
+  </table><br>
+  "HORARIO DE LUN A VIE 6:30 AM A 8:30 PM"
+  <br>
+	  OBSERVACIONES: La presentación de este tiquete es
+		dispensable para la entrega del  vehiculo aparcado. 
+		Advenrtencia: Por favor revisar el vehiculo al entregar y salir del parqueadero.
+	<br>
+ 		Despues de retirado el vehiculo no admitimos
+		reclamos por daños, faltas o averias. Por motivos de 
+		fuerza mayor como TErremotos
+		e incendios
+	<br>
+</div>
+<style>
+	body {
+	  color: #000;
+	  text-align:center;
+	  display: flex;
+	  justify-content: center;
+	  font-size: 10px;
+	}
+	.bill{
+	  width: 250px;
+	  padding: 25px 15px;
+	  box-sizing: border-box;
+	}
+	.flex {
+	  display: flex;
+	}
+	.justify-between {
+	  justify-content: space-between;
+	}
+	.table{
+	  border-collapse: collapse;
+	  width: 100%;
+	}
+	.table .header{
+	  border-top: 2px dashed #000;
+	  border-bottom: 2px dashed #000;
+	}
+	.table {
+	  text-align: left;
+	}
+	.table .total td:first-of-type {
+	  border-top: none;
+	  border-bottom: none;
+	  margin-top: 15px;
+	}
+	.table .total td {
+	  border-top: 2px dashed #000;
+	  border-bottom: 2px dashed #000;
+	}
+	.table .net-amount td:first-of-type {
+	  border-top: none;
+	}
+	.table .net-amount td {
+	  border-top: 2px dashed #000;
+	  font-size: 12px !important;
+	}
+	.table .net-amount{
+	  border-bottom: 2px dashed #000;
+	}
+	@media print {
+	    .hidden-print,
+	    .hidden-print * {
+	        display: none !important;
+	    }
+	}
+</style>
+<script>
+	window.print();
+</script>

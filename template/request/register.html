@@ -1,0 +1,246 @@
+{% extends '../base.html' %}
+{% block content %}
+	<div class="page-header">
+		<div class="row">
+			<div class="col-md-6 col-sm-12">
+				<div class="title">
+					<h4>Lista de carros que estan dentro del parqueadero</h4>
+				</div>
+			</div>
+			<div class="col-md-6 col-sm-12 text-right">
+				<a class="btn btn-primary add_car" href="javascript:void(0);" role="button">
+					Agregar Vehiculo
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="card-box mb-30">
+		<div class="pb-20 table-responsive p-3">
+			<table id="add_to_table_inventory" class="table stripe hover nowrap">
+				<thead>
+					<tr>
+						<th class="table-plus datatable-nosort" style="width: 7%;text-align: center;">Placa</th>
+						<th style="width: 5%;text-align: center;">Tipo de Vehiculo</th>
+						<th style="width: 5%;text-align: center;">Casco</th>
+						<th style="width: 7%;text-align: center;">Fecha / E</th>
+						<th style="width: 7%;text-align: center;">Hora / E</th>
+						<th style="width: 7%;text-align: center;">Salida / E</th>
+						<th style="width: 7%;text-align: center;">Hora / S</th>
+						<th style="width: 7%;text-align: center;">Fecha</th>
+						<th style="width: 50%;text-align: center;">Novedad</th>
+						<th class="datatable-nosort" style="width: 10%;text-align: center;">Action</th>
+					</tr>
+				</thead>
+				<tbody class="father">
+					{% for i in data %}
+						<tr>
+							<td style="text-align: center;" class="plate{{i.plate}}">{{i.plate}}</td>
+							<td style="text-align: center;" class="type_car{{i.plate}}">{{i.type_car}}</td>
+							<td style="text-align: center;" class="">{{i.helmet}}</td>
+							<td style="text-align: center;" class="date_entrance{{i.plate}}">{{i.date_entrance}}</td>
+							<td style="text-align: center;" class="entrance{{i.plate}}">{{i.entrance}}</td>
+							<td style="text-align: center;" class="date_exit{{i.plate}}">{{i.date_exit}}</td>
+							<td style="text-align: center;" class="exit{{i.plate}}">{{i.exit}}</td>
+							<td style="text-align: center;" class="date{{i.plate}}">{{i.date}}</td>
+							<td style="text-align: center;" class="total{{i.plate}}">{{i.note}}</td>
+							<td style="text-align: center;" class="{{i.plate}}">
+								<button type="button" class="btn btn-primary cancel_car" id="{{i.plate}}">Cancelar</button>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<!-- Button trigger modal -->
+	<button type="button" hidden class="btn btn-primary modal" data-toggle="modal"  data-target="#staticBackdrop"></button>
+
+	<!-- Modal -->
+	<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Registrar entrada</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form class="form_data_car">
+				<br>
+				<div class="form-group row">
+					<label class="col-sm-12 col-md-3 col-form-label">N° de Placa</label>
+					<div class="col-sm-12 col-md-9">
+						<input name="plate" class="form-control plate" style="text-transform:uppercase;" type="text" autofocus>
+					</div>
+				</div>
+				<div class="form-group row type_cart col-12" hidden>
+					<label class="col-sm-12 col-md-3 col-form-label">Tipo de vehiculo</label>
+					<div class="col-sm-12 col-md-9">
+						<select class="form-control" id="type_car_select">
+						  <option selected="true" value="0" disabled>seleccione el vehiculo</option>
+						  <option value="1">Carro</option>
+						  <option value="2">Camión</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="form-group row helmet_number col-12" hidden>
+					<label class="col-sm-12 col-md-3 col-form-label">N° de Casco</label>
+					<div class="col-sm-12 col-md-9">
+						<input name="helmet" class="form-control helmet" type="number">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-12 col-md-3 col-form-label">Novedades</label>
+					<div class="col-sm-12 col-md-9">
+						<textarea class="form-control novedad" id="exampleFormControlTextarea1" name="note" placeholder="Escribe las novedades aquí" rows="3"></textarea>
+					</div>
+				</div>
+			</form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary close_data" data-dismiss="modal">Cerrar</button>
+	        <button type="button" class="btn btn-primary save_data">Registrar</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<button type="button" class="btn mb-20 btn-primary btn-block" hidden id="register_data"></button>
+	<button type="button" class="btn mb-20 btn-primary btn-block" hidden id="error_data"></button>
+	<button type="button" class="btn mb-20 btn-primary btn-block" hidden id="delete_data"></button>
+
+{% endblock %}
+{% block script %}
+
+<script>
+	$(document).ready(function(){
+		cart = false
+
+		t = $('#add_to_table_inventory').DataTable({
+    		destroy:true,
+    		scrollCollapse: true,
+				autoWidth: false,
+				responsive: true,
+				columnDefs: [{
+					targets: "datatable-nosort",
+					orderable: false,
+			}],
+			"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+			"language": {
+				"info": "_START_-_END_ de _TOTAL_ Vehiculos",
+				searchPlaceholder: "Buscar placa",
+				paginate: {
+					next: '<i class="ion-chevron-right"></i>',
+					previous: '<i class="ion-chevron-left"></i>'  
+				}
+			}
+    	})
+    	
+		$(".add_car").click(function(){
+			$(".modal").click();
+		})
+
+		$(document).on('shown.bs.modal', function (e) {
+        	$('[autofocus]', e.target).focus();
+        });
+
+		$(".plate").keyup(function(){
+			plate = $(".plate").val()
+			if(plate.length == 6){
+				last_character = (/^[0-9]$/.test(plate.charAt(plate.length - 1))) ? 2 : 1;
+				if(last_character == 2){
+					$(".type_cart").prop("hidden", false);
+					$(".helmet_number").prop("hidden", true);
+					cart = true
+				}
+				else{
+					$(".helmet_number").prop("hidden", false);
+					$(".type_cart").prop("hidden", true);
+					cart = false
+				}
+			}
+			else if(plate.length > 6){
+				$(".plate").val('')
+			}
+			else{
+				$(".type_cart").prop("hidden", true);
+				$(".helmet_number").prop("hidden", true);
+				cart = null
+			}
+		})
+
+		function Print_Ticket(id){
+			let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=0,height=0,left=-1000,top=-1000`;
+			url = `http://localhost:8000/register/Print_Ticket/${id}`
+			let ventanaEmergente = window.open(url,"Ticket de entrada",params)
+			ventanaEmergente.addEventListener("beforeunload", function() {
+			    location.reload(true);
+			});
+		}
+
+		function Print_Ticket_Exit(id){
+			let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=0,height=0,left=-1000,top=-1000`;
+			url = `http://localhost:8000/register/Print_Ticket_Exit/${id}`
+			let ventanaEmergente = window.open(url,"Ticket de salida",params)
+			ventanaEmergente.addEventListener("beforeunload", function() {
+			    location.reload(true);
+			});
+		}
+
+		$(document).on('click','.cancel_car', function(){
+			id = this.id
+			$.ajax({
+				url : "{% url 'Elimina' %}",
+				data: {'plate':id, 'helmet': 0,'note':""},
+				success:function(e){
+					Print_Ticket_Exit(id)
+				}
+			})
+		})
+
+		$(".modal").on("hidden.bs.modal", function () {
+		    $(".helmet").val('')
+			$(".plate").val('')
+			$(".novedad").val('')
+		});
+
+
+		$(".save_data").click(function(){
+			form = $(".form_data_car").serialize();
+			plate = $(".plate").val()
+			$.ajax({
+				data:form,
+				success:function(e){
+					$(".close_data").click();
+					$(".helmet").val('')
+					$(".plate").val('')
+					$(".novedad").val('')
+					Print_Ticket(plate)
+				}
+			})
+			if(plate.length == 6 && $(".helmet").val().length > 0 && parseInt($(".helmet").val()) > 0 && parseInt($(".helmet").val()).length < 2){
+				$.ajax({
+					data:form,
+					success:function(e){
+						$(".close_data").click();
+						$(".helmet").val('')
+						$(".plate").val('')
+						$(".novedad").val('')
+						Print_Ticket(plate)
+					}
+				})
+			}
+			if(plate.length == 6 && parseInt($("#type_car_select").val()) > 0){
+				value = parseInt($("#type_car_select").val())
+				
+			}
+			else{
+				$("#error_data").click()
+			}
+		})
+	})
+</script>
+
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends '../base.html' %}
+{% block content %}
+	<div class="page-header">
+		<div class="row">
+			<div class="col-md-6 col-sm-12">
+				<div class="title">
+					<h4>Historial de movimiento.</h4>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card-box mb-30">
+		<div class="pb-20 table-responsive p-3">
+			<table id="add_to_table_inventory" class="table stripe hover nowrap">
+				<thead>
+					<tr>
+						<th class="table-plus datatable-nosort" style="width: 7%;text-align: center;">Placa</th>
+						<th style="width: 5%;text-align: center;">Tipo de Vehiculo</th>
+						<th style="width: 7%;text-align: center;">Fecha / E</th>
+						<th style="width: 7%;text-align: center;">Hora / E</th>
+						<th style="width: 7%;text-align: center;">Fecha / S</th>
+						<th style="width: 7%;text-align: center;">Hora / S</th>
+						<th style="width: 7%;text-align: center;">Fecha</th>
+						<th style="width: 7%;text-align: center;">Total</th>
+						<th style="width: 7%;text-align: center;">Usuario</th>
+					</tr>
+				</thead>
+				<tbody class="father">
+					{% for i in data %}
+						<tr>
+							<td style="text-align: center;" class="plate{{i.plate}}">{{i.plate}}</td>
+							<td style="text-align: center;" class="type_car{{i.plate}}">{{i.type_car}}</td>
+							<td style="text-align: center;" class="date_entrance{{i.plate}}">{{i.date_entrance}}</td>
+							<td style="text-align: center;" class="entrance{{i.plate}}">{{i.entrance}}</td>
+							<td style="text-align: center;" class="date_exit{{i.plate}}">{{i.date_exit}}</td>
+							<td style="text-align: center;" class="exit{{i.plate}}">{{i.exit}}</td>
+							<td style="text-align: center;" class="date{{i.plate}}">{{i.date}}</td>
+							<td style="text-align: center;" class="date{{i.plate}}">{{i.total}}</td>
+							<td style="text-align: center;" class="date{{i.plate}}">{{i.user}}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+{% endblock %}
+{% block script %}
+
+<script>
+	$(document).ready(function(){		
+		t = $('#add_to_table_inventory').DataTable({
+    		destroy:true,
+    		scrollCollapse: true,
+				autoWidth: false,
+				responsive: true,
+				columnDefs: [{
+					targets: "datatable-nosort",
+					orderable: false,
+			}],
+			"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+			"language": {
+				"info": "_START_-_END_ de _TOTAL_ Vehiculos",
+				searchPlaceholder: "Buscar placa",
+				paginate: {
+					next: '<i class="ion-chevron-right"></i>',
+					previous: '<i class="ion-chevron-left"></i>'  
+				}
+			}
+    	})
+	})
+
+</script>
+
+{% endblock %}
