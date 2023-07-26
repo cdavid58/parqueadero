@@ -13,6 +13,20 @@
                     type: 'error',
                     title: 'Oops...',
                     text: 'La información es incorrecta',
+                    timer: 2000,
+                    showConfirmButton:false
+                }
+            )
+        });
+
+        $('#error_login').click(function () {
+            swal(
+                {
+                    type: 'error',
+                    title: 'Oops...',
+                    text: 'La información es incorrecta',
+                    timer: 2000,
+                    showConfirmButton:false
                 }
             )
         });
@@ -61,6 +75,54 @@
                     title: 'Información',
                     text: 'Enviando datos',
                     timer: 1500,
+                    showConfirmButton:false
+                }
+            )
+        });
+
+        $('#SAVEUSER').click(function () {
+            swal(
+                {
+                    type: 'success',
+                    title: 'Éxito',
+                    text: 'El usuario fué creado con éxito',
+                    timer: 2000,
+                    showConfirmButton:false
+                }
+            )
+        });
+
+        $('#ERRORUSER').click(function () {
+            swal(
+                {
+                    type: 'error',
+                    title: 'Oops...',
+                    text: 'El usuario no ya existe',
+                    timer: 2000,
+                    showConfirmButton:false
+                }
+            )
+        });
+
+        $('#UPATEUSER').click(function () {
+            swal(
+                {
+                    type: 'success',
+                    title: 'Éxito',
+                    text: 'El usuario fué actualizado con éxito',
+                    timer: 2000,
+                    showConfirmButton:false
+                }
+            )
+        });
+
+        $('#UPDATERRORUSER').click(function () {
+            swal(
+                {
+                    type: 'error',
+                    title: 'Oops...',
+                    text: 'El usuario no fué actualizado con éxito',
+                    timer: 2000,
                     showConfirmButton:false
                 }
             )

@@ -6,6 +6,8 @@
 	<!-- Basic Page Info -->
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>Estacionamiento</title>
+	<meta name="description" content="Este es un sistema de servicio para parqueaderos"/>
+
 
 	<!-- Site favicon -->
 	<link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon.ico' %}">
@@ -177,7 +179,7 @@
 						<span class="user-name">{{request.session.name_user|title}}</span>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-						<a class="dropdown-item" href=""><i class="dw dw-logout"></i> Salir</a>
+						<a class="dropdown-item" href="{% url 'LogOut' %}"><i class="dw dw-logout"></i> Salir</a>
 					</div>
 				</div>
 			</div>
@@ -193,7 +195,7 @@
 		<div class="pd-ltr-20">
 			{% block content %}{% endblock %}
 			<div class="footer-wrap pd-20 mb-20 card-box">
-				Developed by <a href="https://evansoft.pythonanywhere.com" target="_blank">Evansoft</a>
+				Developed by Theriosoft
 			</div>
 		</div>
 	</div>
@@ -205,7 +207,6 @@
 	<script src="{% static 'vendors/scripts/script.min.js' %}"></script>
 	<script src="{% static 'vendors/scripts/process.js' %}"></script>
 	<script src="{% static 'vendors/scripts/layout-settings.js' %}"></script>
-
 
 
 	<script src="{% static 'src/plugins/datatables/js/jquery.dataTables.min.js' %}"></script>
@@ -237,6 +238,7 @@
 	<script src="{% static 'src/plugins/jquery-steps/jquery.steps.js' %}"></script>
 	<script src="{% static 'vendors/scripts/steps-setting.js' %}"></script>
 	<script src="{% static 'src/plugins/dropzone/src/dropzone.js' %}"></script>
+
 	<script>
 		Dropzone.autoDiscover = false;
 		$(".dropzone").dropzone({
@@ -247,6 +249,7 @@
 				return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
 			}
 		});
+		console.clear()
 	</script>
 	{% block script %}{% endblock %}
 </body>

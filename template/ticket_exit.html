@@ -20,9 +20,13 @@
       <div>Recibo N°: {{information.consecutive}}</div>
       <div></div>
     </div>
-     <div class="flex justify-between">
+    <div class="flex justify-between">
       <div>FECHA: {{information.date_exit}}</div>
       <div>HORA: {{information.exit}}</div>
+    </div>
+    <div class="flex justify-between">
+      <div>Tiempo: {{information.total_minutes}}</div>
+      <div>Tarifa: {{information.tarifa}}</div>
     </div>
   </div>
   <table class="table" style="margin-top: 10px;">
@@ -40,7 +44,7 @@
 		      <span style="font-size: 20px;width: 10%;">CASCO</span>
 		    </th>
 		    <th style="text-align:center;">
-		      <span style="font-size: 20px;width: 10%;">{{information.plate}}</span>
+		      <span style="font-size: 20px;width: 10%;">{{information.helmet}}</span>
 		    </th>
 	    </tr>
     {% endif %}

@@ -1,0 +1,74 @@
+{% extends '../base.html' %}
+{% block content %}
+	<div class="page-header">
+		<div class="row">
+			<div class="col-md-6 col-sm-12">
+				<div class="title">
+					<h4>Listado de usuarios.</h4>
+				</div>
+			</div>
+			<div class="col-md-3 col-sm-12 text-right">
+			</div>
+			<div class="col-md-3 col-sm-12 text-right">
+				<a class="btn btn-primary add_product" href="{% url 'Add_User' %}" role="button">
+					Agregar Usuario
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="card-box mb-30">
+		<div class="pb-20 table-responsive p-3">
+			<table id="add_to_table_inventory" class="table stripe hover nowrap">
+				<thead>
+					<tr>
+						<!-- <th class="table-plus datatable-nosort" style="width: 7%;text-align: center;">N°</th> -->
+						<th class="table-plus datatable-nosort" style="width: 15%;text-align: center;">Usuario</th>
+						<th style="width: 7%;text-align: center;">Tipo de usuario</th>
+						<th class="datatable-nosort" style="width: 2%;">Action</th>
+					</tr>
+				</thead>
+				<tbody class="father">
+					{% for i in list_user %}
+						<tr>
+							<!-- <td style="text-align: center;" class="plate{{i.plate}}">{{i.pk}}</td> -->
+							<td style="text-align: center;" class="type_car{{i.plate}}">{{i.user|title}}</td>
+							<td style="text-align: center;" class="date_entrance{{i.plate}}">{% if i.type_user == 2 %}Administrador{% else %}Empleado{% endif %}</td>
+							<td style="text-align: center;" class="entrance{{i.plate}}">
+								<div class="dropdown">
+									<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+										<i class="dw dw-more"></i>
+									</a>
+									<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+										<a class="dropdown-item" href="{% url 'Edit_User' i.pk %}"><i class="dw dw-edit"></i> Editar</a>
+										<a class="dropdown-item delete" id="{{i.pk}}"><i class="dw dw-edit"></i> Eliminar</a>
+									</div>
+								</div>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}
+{% block script %}
+
+	<script>
+		$(document).ready(function(){
+			$(document).on('click','.delete',function() {
+				id = this.id
+				tr = $(this).closest('tr');
+				$.ajax({
+					url:"{% url 'Delete_User' %}",
+					data:{'pk':id},
+					success:function(data){
+						if(data){
+							location.reload(true)
+						}
+					}
+				})
+			})
+		})
+	</script>
+
+{% endblock %}

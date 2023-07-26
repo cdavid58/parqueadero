@@ -80,7 +80,7 @@
 		</div>
 	</div>
 	<!-- js -->
-	<button type="button" class="btn mb-20 btn-primary btn-block" hidden id="validate_login_error">Click me</button>
+	<button type="button" class="btn mb-20 btn-primary btn-block" hidden id="error_login">Click me</button>
 	
 	<script src="https://code.jquery.com/jquery-3.6.1.slim.js" integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
 	<script src="{% static 'vendors/scripts/core.js' %}"></script>
@@ -97,11 +97,11 @@
 				$.ajax({
 					data:$("form").serialize(),
 					success:function(data){
-						if(data == "False"){
-							$("#validate_login_error").click()
+						if(data == 'True'){
+							location.href = "{% url 'Index' %}"
 						}
 						else{
-							location.href = "{% url 'Index' %}"
+							$("#error_login").click()
 						}
 					}
 				})

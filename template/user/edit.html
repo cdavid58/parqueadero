@@ -1,0 +1,83 @@
+{% extends '../base.html' %}
+{% block content %}
+
+<div class="alert_register_2"></div>
+<div class="pd-20 card-box mb-30">
+	<div class="clearfix">
+		<div class="pull-left">
+			<h4 class="text-blue h4">Editar Usuario</h4>
+		</div>
+	</div>
+	<form class="form_data_product">
+		<br>
+		<div class="form-group row">
+			<label class="col-sm-12 col-md-2 col-form-label">Nombre de Usuario</label>
+			<div class="col-sm-12 col-md-10">
+				<input name="user_name" value="{{user.user_name}}" class="form-control docI" type="text" autofocus>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label class="col-sm-12 col-md-2 col-form-label">Contraseña</label>
+			<div class="col-sm-12 col-md-10">
+				<input name="psswd" class="form-control" value="{{user.psswd}}" type="text" placeholder="Harina Pan">
+			</div>
+		</div>
+		<div class="form-group row">
+			<label class="col-sm-12 col-md-2 col-form-label">Tipo de Usuario</label>
+			<div class="col-sm-12 col-md-10">
+				<select name="type_user" class="form-control" value="0" type="number">
+					{% if user.type_user == '1' %}
+						<option value="1">Empleado</option>
+						<option value="2">Administrador</option>
+					{% else %}
+						<option value="2">Administrador</option>
+						<option value="1">Empleado</option>
+					{% endif %}
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<button type="button" class="btn btn-primary register_product">Actualizar usuario</button>
+			<a type="button" href="{% url 'List_User' %}" class="btn btn-primary col-xs-12 register_client ml-auto">Lista de usuarios</a>
+		</div>
+	</form>
+</div>
+
+<button type="button" class="btn mb-20 btn-primary btn-block" hidden id="UPATEUSER"></button>
+<button type="button" class="btn mb-20 btn-primary btn-block" hidden id="UPDATERRORUSER"></button>
+{% endblock %}
+{% block script %}
+
+<script>
+	function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function time_sleep() {
+        for (let i = 0; i < 2; i++) {
+            console.log(`Waiting ${i} seconds...`);
+            await sleep(i * 1000);
+        }
+		$(".docI").focus()
+    }
+	$(document).ready(function() {
+		$(".register_product").click(function(){
+			$("#REGISTRAMOSCLIENTE").click()
+			$.ajax({
+				data:$(".form_data_product").serialize(),
+				success:function(data){
+					if(data == "True"){
+						$("#UPATEUSER").click()
+						time_sleep()
+					}					
+					else{
+						$("#UPDATERRORUSER").click()
+						$(".docI").focus()
+					}
+				}
+			})
+		})
+	})
+</script>
+
+{% endblock %}

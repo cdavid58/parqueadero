@@ -2,7 +2,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <div class="bill">
   <div class="brand">
-    <strong style="font-size:15px;">ESTACIONAMIENTO</strong>
+    <strong style="font-size:15px;">ESTACIONAMIENTO ENTRADA</strong>
   </div>
   <div class="address">
     CRA 40 #49-24 OFC. 210
@@ -34,6 +34,16 @@
 	      <span style="font-size: 20px;width: 10%;">{{information.plate}}</span>
 	    </th>
     </tr>
+    {% if information.type_car == "Moto" %}
+	    <tr class="header">
+		    <th>
+		      <span style="font-size: 20px;width: 10%;">CASCO</span>
+		    </th>
+		    <th style="text-align:center;">
+		      <span style="font-size: 20px;width: 10%;">{{information.helmet}}</span>
+		    </th>
+	    </tr>
+    {% endif %}
     	<!-- START ROWS -->
     <!-- <tr style="">
       <td> 

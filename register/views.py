@@ -6,14 +6,14 @@ def ListRegister(request):
 	if request.is_ajax():
 		data = request.GET
 		print("Entre")
-		result = Operation().Operations_Schedule(data['plate'],data['helmet'],data['note'])
+		result = Operation().Operations_Schedule(data['plate'],data['helmet'],data['note'],request.session['user_name'])
 		return HttpResponse(True)
 	return render(request,'request/register.html',{'data':Operation().Get_List_Schedule()})
 
 def Elimina(request):
 	if request.is_ajax():
 		data = request.GET
-		result = Operation().Operations_Schedule(data['plate'],data['helmet'],data['note'])
+		result = Operation().Operations_Schedule(data['plate'],data['helmet'],data['note'],request.session['user_name'])
 		return HttpResponse(True)
 
 def Print_Ticket(request,pk):

@@ -88,7 +88,7 @@
 				<div class="form-group row helmet_number col-12" hidden>
 					<label class="col-sm-12 col-md-3 col-form-label">N° de Casco</label>
 					<div class="col-sm-12 col-md-9">
-						<input name="helmet" class="form-control helmet" type="number">
+						<input name="helmet" class="form-control helmet" value="0" type="number">
 					</div>
 				</div>
 				<div class="form-group row">
@@ -175,18 +175,14 @@
 			let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=0,height=0,left=-1000,top=-1000`;
 			url = `http://localhost:8000/register/Print_Ticket/${id}`
 			let ventanaEmergente = window.open(url,"Ticket de entrada",params)
-			ventanaEmergente.addEventListener("beforeunload", function() {
-			    location.reload(true);
-			});
+			location.reload(true);
 		}
 
 		function Print_Ticket_Exit(id){
 			let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=0,height=0,left=-1000,top=-1000`;
 			url = `http://localhost:8000/register/Print_Ticket_Exit/${id}`
 			let ventanaEmergente = window.open(url,"Ticket de salida",params)
-			ventanaEmergente.addEventListener("beforeunload", function() {
-			    location.reload(true);
-			});
+			location.reload(true);
 		}
 
 		$(document).on('click','.cancel_car', function(){
@@ -210,17 +206,7 @@
 		$(".save_data").click(function(){
 			form = $(".form_data_car").serialize();
 			plate = $(".plate").val()
-			$.ajax({
-				data:form,
-				success:function(e){
-					$(".close_data").click();
-					$(".helmet").val('')
-					$(".plate").val('')
-					$(".novedad").val('')
-					Print_Ticket(plate)
-				}
-			})
-			if(plate.length == 6 && $(".helmet").val().length > 0 && parseInt($(".helmet").val()) > 0 && parseInt($(".helmet").val()).length < 2){
+			if(plate.length == 6 && $(".helmet").val().length > 0){
 				$.ajax({
 					data:form,
 					success:function(e){
@@ -232,9 +218,18 @@
 					}
 				})
 			}
-			if(plate.length == 6 && parseInt($("#type_car_select").val()) > 0){
+			else if(plate.length == 6 && parseInt($("#type_car_select").val()) > 0){
 				value = parseInt($("#type_car_select").val())
-				
+				$.ajax({
+					data:form,
+					success:function(e){
+						$(".close_data").click();
+						$(".helmet").val('')
+						$(".plate").val('')
+						$(".novedad").val('')
+						Print_Ticket(plate)
+					}
+				})				
 			}
 			else{
 				$("#error_data").click()
